@@ -14,7 +14,7 @@ def browser_type_name():
 
 @pytest.fixture(scope="session")
 def headless():
-    return os.getenv("HEADLESS", "false").lower() == "true"
+    return os.getenv("HEADLESS", "true").lower() == "true"
 
 
 @pytest.fixture(scope="session")
