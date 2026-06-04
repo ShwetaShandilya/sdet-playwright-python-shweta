@@ -1,16 +1,17 @@
 import pytest
-from utils.logger import get_logger
+from pages.automation_page import AutomationPage
+from utils.helpers import read_json_file
 
-logger = get_logger(__name__)
+
+test_data = read_json_file("test_data/home_page_data.json")
 
 
 @pytest.mark.smoke
 def test_homepage_title(page, base_url):
+    automation_page = AutomationPage(page)
 
-    logger.info(f"Opening {base_url}")
+    automation_page.navigate_to_homepage(base_url)
 
-    page.goto(base_url)
+    expected_title = test_data["home_page"]["expected_title_text"]
 
-    logger.info("Verifying page title")
-
-    assert "Automation Testing Practice Website" in page.title()
+    assert expected_title in automation_page.get_homepage_title()
